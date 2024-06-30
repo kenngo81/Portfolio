@@ -38,13 +38,10 @@ function RandomQuote(props) {
     }
 
     React.useEffect(() => {
-        fetch('https://programming-quotes-api.herokuapp.com/quotes/random')
-            .then(res => res.json())
-            .then(data => {
-                setQuote(data.en);
-                setAuthor(data.author);
-            })
-            .catch(console.error);
+        var data = "Stop talking to idiots. If you don't want to be like them";
+        var author = "Anyone smart";
+        setQuote(data);
+        setAuthor(author);
     }, []);
     
     return (
