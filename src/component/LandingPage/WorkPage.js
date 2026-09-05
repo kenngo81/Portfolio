@@ -8,6 +8,8 @@ import useStore from "../../hook/useStore";
 import TextAround from "../core/TextAround";
 import { getMeta } from "../utils/SEO";
 import { vh } from "../utils/_CSSUnits";
+import Link from '../core/Link';
+import IonIcon from '../core/IonIcon';
 
 const StyledWorkPage = styled(StyledLandingPage)`
     display: flex;
@@ -80,6 +82,52 @@ const StyledMaintain = styled(Maintain)`
 
     @media (max-width: 768px) {
         display: none;
+    }
+`;
+
+const StyledLinkedIn = styled(Link)`
+    position: absolute;
+    bottom: calc(var(--footerHeight) + 20px);
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 30px;
+    border: 2px solid transparent;
+    background:
+        linear-gradient(var(--background), var(--background)) padding-box,
+        linear-gradient(135deg, #0077B5, #00A0DC, #2FE3FE) border-box;
+    color: #00A0DC;
+    font-family: var(--codeFont);
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-decoration: none;
+    z-index: 99;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(0, 119, 181, 0.2);
+
+    &:hover {
+        box-shadow: 0 0 25px rgba(0, 119, 181, 0.5);
+        transform: scale(1.05);
+        color: #2FE3FE;
+    }
+
+    & > ion-icon {
+        font-size: 1.4rem;
+    }
+
+    @media (max-width: 768px) {
+        bottom: calc(var(--footerHeight) + 12px);
+        right: 12px;
+        padding: 8px 14px;
+        font-size: 0.72rem;
+        gap: 5px;
+        border-width: 1.5px;
+
+        & > ion-icon {
+            font-size: 1.1rem;
+        }
     }
 `;
 
@@ -174,6 +222,10 @@ function WorkPage(props) {
                     ))
                 }, [works])}
             </StyledWorks>
+            <StyledLinkedIn href="https://www.linkedin.com/in/duc-ngotrung-076237130">
+                <IonIcon icon="logo-linkedin" />
+                LinkedIn
+            </StyledLinkedIn>
         </StyledWorkPage>
     )
 }

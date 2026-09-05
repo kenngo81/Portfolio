@@ -321,10 +321,27 @@ function AudioSphere(props) {
         audioControl.addEventListener("click", onClick);
         audio.addEventListener("ended", onAudioEnded);
         window.addEventListener("resize", onWindowResize);
+
+        // Auto-play on first user interaction (browser autoplay policy)
+        const autoPlayOnInteraction = () => {
+            if (!activeAudio) {
+                setActiveAudio(true);
+            }
+            window.removeEventListener('click', autoPlayOnInteraction);
+            window.removeEventListener('touchstart', autoPlayOnInteraction);
+            window.removeEventListener('keydown', autoPlayOnInteraction);
+        };
+        window.addEventListener('click', autoPlayOnInteraction, { once: true });
+        window.addEventListener('touchstart', autoPlayOnInteraction, { once: true });
+        window.addEventListener('keydown', autoPlayOnInteraction, { once: true });
+
         return () => {
             audioControl?.removeEventListener("click", onClick);
             audio?.removeEventListener("ended", onAudioEnded);
             window.removeEventListener('resize', onWindowResize);
+            window.removeEventListener('click', autoPlayOnInteraction);
+            window.removeEventListener('touchstart', autoPlayOnInteraction);
+            window.removeEventListener('keydown', autoPlayOnInteraction);
             stop();
         };
     // eslint-disable-next-line react-hooks/exhaustive-deps
