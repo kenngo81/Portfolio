@@ -12,6 +12,12 @@ const StyledAboutPage = styled(StyledLandingPage)`
     display: flex;
     align-items: center;
     position: relative;
+
+    @media (max-width: 768px) {
+        background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/801d5642652707.57d29c9dd3245.gif');
+        background-size: cover;
+        background-position: center;
+    }
 `;
 
 const StyledContent = styled.div`
@@ -38,12 +44,23 @@ const StyledContent = styled.div`
     & > p {
         font-family: var(--textFont);
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        border-right: none;
+        background: rgba(0, 0, 0, 0.78);
+        backdrop-filter: blur(8px);
+    }
 `;
 
 const StyledImage = styled(LazyImage)`
     width: 50%;
     height: 100%;
     background-color: var(--primary);
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 
 const moving = keyframes`

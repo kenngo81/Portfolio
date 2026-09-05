@@ -79,6 +79,19 @@ const StyledSwitcher = styled.div`
         background-position: center;
         background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/d6eb6d42652707.57d29c9d6d500.gif);
     }
+
+    @media (max-width: 768px) {
+        &::before {
+            width: 12vmin;
+            height: 24vmin;
+            border-top-right-radius: calc(12vmin + 8px);
+            border-bottom-right-radius: calc(12vmin + 8px);
+        }
+        &::after {
+            width: 24vmin;
+            height: 24vmin;
+        }
+    }
 `;
 // anh vong tron
 function PageSwitcher(props) {

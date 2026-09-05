@@ -24,6 +24,10 @@ const StyledNavBar = styled.div`
     justify-content: space-between;
     height: var(--footerHeight);
     padding: 0 20px;
+
+    @media (max-width: 768px) {
+        padding: 0 8px;
+    }
 `;
 
 const StyledNavs = styled.div`
@@ -56,6 +60,11 @@ const StyledNav = styled.div`
     height: 100%;
     color: ${props => props.active ? 'var(--secondary)' : 'currentColor'};
     transition: all 0.2s ease-in-out;
+
+    @media (max-width: 768px) {
+        padding: 6px;
+        font-size: 0.85rem;
+    }
 
     & > * {
         pointer-events: none;

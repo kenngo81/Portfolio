@@ -39,6 +39,28 @@ const StyledMaintain = styled.div`
             height: 100%;
         }
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        max-width: 85vw;
+        text-shadow: 0 0 15px rgba(0, 0, 0, 0.95), 0 0 5px #000;
+        & > h1 {
+            font-size: 1.85em;
+            text-align: center;
+            line-height: 1.15;
+            margin-bottom: 0.2rem;
+        }
+        & > p {
+            font-size: 0.8rem;
+            text-align: center;
+            justify-content: center;
+            line-height: 1.35;
+            transform: none;
+        }
+        & > p::before {
+            display: none;
+        }
+    }
 `;
 
 function Maintain(props) {

@@ -45,7 +45,7 @@ const StyledIntrodution = styled.div`
 function Introdution(props) {
     return (
         <StyledIntrodution>
-            <h1>Hi everyone, I'm Ken Biker<br />(KenRaver81)</h1>
+            <h1>Hi everyone, I'm Ken Biker<br /></h1>
             <RandomQuote />
             <h2>Who am I?</h2>
             <ul>

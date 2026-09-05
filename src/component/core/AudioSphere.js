@@ -80,9 +80,15 @@ class ParticlesSphere {
 
 const StyledAudioSphere = styled.div`
     position: relative;
-    width: 60vh;
-    height: 60vh;
+    width: 60vmin;
+    height: 60vmin;
     z-index: 1;
+
+    @media (max-width: 768px) {
+        width: 100%;
+        height: 100%;
+        top: 0;
+    }
 `;
 
 const StyledCanvasWrapper = styled.div`
@@ -92,11 +98,16 @@ const StyledCanvasWrapper = styled.div`
 
     & > canvas {
         position: absolute;
-        width: 100vh !important;
-        height: 100vh !important;
+        width: 90vmin !important;
+        height: 90vmin !important;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+
+        @media (max-width: 768px) {
+            width: min(50vh, 76vw) !important;
+            height: min(50vh, 76vw) !important;
+        }
     }
 `;
 
@@ -116,7 +127,7 @@ const StyledAudioControls = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: 4px;
     width: 6rem;
     height: 2rem;
     top: 100%;
@@ -129,6 +140,24 @@ const StyledAudioControls = styled.div`
     border-radius: 1.5rem;
     border: 1.5px solid var(--text);
     transition: all 0.25s ease-in-out;
+    z-index: 999999;
+
+    @media (max-width: 768px) {
+        top: calc(50% + 92px);
+        bottom: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 3.6rem;
+        height: 1.3rem;
+        font-size: 0.58rem;
+        border-radius: 0.75rem;
+        border-width: 1px;
+        gap: 3px;
+
+        &::after {
+            font-size: 0.95rem;
+        }
+    }
 
     &::before {
         content: 'AUDIO';

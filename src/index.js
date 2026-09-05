@@ -5,26 +5,34 @@ import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
 
 const Desktop = React.lazy(() => import('./component/Desktop'));
-const Mobile = React.lazy(() => import('./component/Mobile'));
+
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error('ErrorBoundary caught:', error, errorInfo);
+  }
+  render() {
+    if (this.state.hasError) {
+      return this.props.fallback || <div>Something went wrong.</div>;
+    }
+    return this.props.children;
+  }
+}
 
 const App = React.memo(props => {
-  const [isMobile, setIsMobile] = React.useState(window.innerWidth < 500);
-
-  React.useEffect(() => {
-    const onResize = () => {
-      setIsMobile(window.innerWidth < 500);
-    };
-    window.addEventListener('resize', onResize);
-    return () => {
-      window.removeEventListener('resize', onResize);
-    };
-  }, []);
-
   return (
     <BrowserRouter>
-      <React.Suspense fallback={<div>Loading...</div>}>
-        {isMobile ? <Mobile /> : <Desktop />}
-      </React.Suspense>
+      <ErrorBoundary>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Desktop />
+        </React.Suspense>
+      </ErrorBoundary>
     </BrowserRouter>
   );
 });

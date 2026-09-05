@@ -2,28 +2,31 @@ import styled from "styled-components";
 import React from "react";
 import ProgressRing from "./ProgressRing";
 
-const BORDER_WIDTH = 3;
-const TRACK_SIZE = window.innerWidth / 3.5;
-const TRACK_RADIUS = TRACK_SIZE / 2;
-
 const StyledScrollBarTrack = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
-    width: ${TRACK_SIZE}px;
-    height: ${TRACK_SIZE}px;
+    width: 30vmin;
+    height: 30vmin;
     top: 50%;
     left: 50%;
     opacity: 0.5;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: ${BORDER_WIDTH}px solid var(--primary);
+    border: 3px solid var(--primary);
     transition: all 1s ease-in-out;
+    pointer-events: none;
+
+    @media (max-width: 768px) {
+        width: 24vmin;
+        height: 24vmin;
+        border-width: 2px;
+    }
 
     &[active="true"] {
         opacity: 1;
-        transform: translate(-50%, -50%) scale(1.2);
+        transform: translate(-50%, -50%) scale(1.15);
     }
 `;
 
@@ -68,9 +71,6 @@ function RadialScrollBar(props) {
         <StyledScrollBarTrack ref={trackEl}>
             <ProgressRing
                 stroke={4} 
-                // ta cộng thêm một nửa border để đặt scrollbar
-                // xoay theo chính giữa của track
-                radius={TRACK_RADIUS + BORDER_WIDTH/4}
                 progress={scrollBarWidthPercentage}
                 pRef={ringEl}
             />

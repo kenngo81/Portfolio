@@ -9,6 +9,11 @@ const StyledWorkTile = styled.div`
     width: 100%;
     min-height: 150px;
     height: 150px;
+
+    @media (max-width: 768px) {
+        min-height: 120px;
+        height: 120px;
+    }
 `;
 
 const StyledContentBox = styled(Link)`
@@ -22,11 +27,19 @@ const StyledContentBox = styled(Link)`
 const StyledIndex = styled.h1`
     font-family: var(--headerFont);
     font-size: 5rem;
+
+    @media (max-width: 768px) {
+        font-size: 2.2rem;
+    }
 `;
 const StyledTitle = styled.h2`
     font-size: 1rem;
     font-family: var(--textFont);
     word-break: break-all;
+
+    @media (max-width: 768px) {
+        font-size: 0.85rem;
+    }
 `;
 
 const StyledImageBox = styled.div`

@@ -20,6 +20,10 @@ const StyledCursor = styled.div`
         width: 40px;
         height: 40px;
     }
+
+    @media (hover: none) and (pointer: coarse) {
+        display: none !important;
+    }
 `;
 
 function Cursor(props) {

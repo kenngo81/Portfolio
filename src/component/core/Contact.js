@@ -8,6 +8,11 @@ const StyledContact = styled.div`
     justify-content: center;
     font-size: 1.8rem;
     gap: 10px;
+
+    @media (max-width: 768px) {
+        font-size: 1.2rem;
+        gap: 6px;
+    }
 `;
 
 const StyledLink = styled(Link)`

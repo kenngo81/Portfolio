@@ -18,13 +18,34 @@ const StyledHelloPage = styled(StyledLandingPage)`
     justify-content: center;
     align-items: center;
     background-image: url(https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/99f70542652707.57d29c9e48f8c.gif);
-    
+    background-size: cover;
+    background-position: center;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: var(--background);
+        opacity: 0.5;
+        z-index: 0;
+    }
+`;
+
+const StyledVisualizer = styled.div`
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: min(75vh, 85vw);
+    height: min(75vh, 85vw);
+    z-index: 1;
 
     &::before {
         content: '';
         position: absolute;
-        width: 75vh;
-        height: 75vh;
+        inset: 0;
+        border-radius: 50%;
         /* gradient border with radius (trick) */
         border: var(--ringBorder) solid transparent;
         background:
@@ -40,22 +61,19 @@ const StyledHelloPage = styled(StyledLandingPage)`
             linear-gradient(#fff 0 0) padding-box, 
             linear-gradient(#fff 0 0);
         -webkit-mask-composite: xor;
-        border-radius: 50%;
         mask-composite: exclude;
-        /* end trick */
-        margin: auto;
+        pointer-events: none;
         z-index: 1;
         animation: ${Rotate} 10s alternate infinite;
     }
 
-    &::after {
-        content: '';
+    @media (max-width: 768px) {
         position: absolute;
-        width: 100vw;
-        height: 100vh;
-        background-color: var(--background);
-        opacity: 0.5;
-        z-index: 0;
+        top: 57%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(48vh, 74vw);
+        height: min(48vh, 74vw);
     }
 `;
 
@@ -64,12 +82,21 @@ const StyledHelloWorld = styled.div`
     top: 50%;
     left: 25%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+        top: 18%;
+        left: 50%;
+        width: 88vw;
+        max-width: 340px;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
 `;
 
 const mySkills = [
-    'Back-end',
-    'Front-end',
+    'Software Engineer',
+    'AI Integration Engineer',
     'Graphic Designers',
     'Player',
     'Gamer',
@@ -82,11 +109,13 @@ function HelloPage(props) {
     
     return (
         <StyledHelloPage>
-            {React.useMemo(() => {return <AudioSphere src={`${process.env.PUBLIC_URL}/audios/870Glizzy - Fuck Shit.mp3`} />}, [])}
-            <TextAround 
-                texts={mySkills} 
-                radius={vh(40)}
-                active={index === componentIndex} />
+            <StyledVisualizer>
+                {React.useMemo(() => {return <AudioSphere src={`${process.env.PUBLIC_URL}/audios/870Glizzy - Fuck Shit.mp3`} />}, [])}
+                <TextAround 
+                    texts={mySkills} 
+                    radius={vh(40)}
+                    active={index === componentIndex} />
+            </StyledVisualizer>
             <StyledHelloWorld>
                 <Maintain componentIndex={componentIndex}>
                     <h1>KeN <span></span>Hello, World!</h1>

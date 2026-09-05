@@ -16,6 +16,8 @@ const StyledWorkPage = styled(StyledLandingPage)`
     align-items: start;
     padding-right: 5vw;
     background-image: url('https://steamuserimages-a.akamaihd.net/ugc/1559891726093942691/DCA091F0E5821D0833EF7D8F157381A74E05EE4D/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false');
+    background-size: cover;
+    background-position: center;
 
     position: relative;
     &::before {
@@ -25,12 +27,18 @@ const StyledWorkPage = styled(StyledLandingPage)`
         background-color: var(--background);
         opacity: 0.5;
     }
+
+    @media (max-width: 768px) {
+        justify-content: center;
+        padding-right: 0;
+    }
 `;
 
 const StyledWorks = styled.div`
     display: flex;
     flex-direction: column;
     width: 600px;
+    max-width: 100vw;
     height: 100vh;
     border-left: 5px solid var(--primary);
     border-right: 5px solid var(--primary);
@@ -47,6 +55,13 @@ const StyledWorks = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+
+    @media (max-width: 768px) {
+        width: 100%;
+        border-left: none;
+        border-right: none;
+        background: rgba(0, 0, 0, 0.7);
+    }
 `;
 
 const StyledSwitcher = styled.div`
@@ -62,6 +77,10 @@ const StyledSwitcher = styled.div`
 
 const StyledMaintain = styled(Maintain)`
     margin-top: 50px;
+
+    @media (max-width: 768px) {
+        display: none;
+    }
 `;
 
 async function getWorks(works) {
@@ -69,10 +88,11 @@ async function getWorks(works) {
         const metaData = await Promise.all(works.map(work => getMeta(work.url)));
         return metaData.map((meta, index) => ({
             ...works[index],
-            ...meta,
+            ...(meta || {}),
         }));
     } catch (error) {
-        console.log(error);
+        console.error(error);
+        return works || [];
     }
 }
 
@@ -84,7 +104,7 @@ function WorkPage(props) {
     const goToPrevPage = useStore(state => state.prevPage);
     const index = useStore(state => state.slideIndex);
     const worksEl = React.useRef(null);
-    const sections = [...new Set(works.map(project => project.section))];
+    const sections = [...new Set((works || []).map(project => project.section).filter(Boolean))];
 
     const isOnPage = () => {
         return index === componentIndex;
@@ -96,10 +116,17 @@ function WorkPage(props) {
     const getSectionIndex = () => sections.indexOf(works[hoverIndex]?.section);
 
     React.useEffect(() => {
+        let isMounted = true;
         fetch(`${process.env.PUBLIC_URL}/data/works.json`)
             .then(res => res.json())
             .then(data => getWorks(data)
-                .then(works => setWorks(works)));
+                .then(result => {
+                    if (isMounted && result) setWorks(result);
+                }))
+            .catch(console.error);
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     React.useEffect(() => {
