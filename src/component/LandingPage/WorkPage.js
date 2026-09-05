@@ -86,47 +86,38 @@ const StyledMaintain = styled(Maintain)`
 `;
 
 const StyledLinkedIn = styled(Link)`
-    position: absolute;
-    bottom: calc(var(--footerHeight) + 20px);
-    right: 20px;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 18px;
-    border-radius: 30px;
-    border: 2px solid transparent;
-    background:
-        linear-gradient(var(--background), var(--background)) padding-box,
-        linear-gradient(135deg, #0077B5, #00A0DC, #2FE3FE) border-box;
-    color: #00A0DC;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 80px;
+    color: var(--text);
     font-family: var(--codeFont);
     font-weight: bold;
-    font-size: 0.85rem;
+    font-size: 1rem;
     text-decoration: none;
-    z-index: 99;
+    backdrop-filter: contrast(0.6);
     transition: all 0.3s ease;
-    box-shadow: 0 0 15px rgba(0, 119, 181, 0.2);
+    opacity: 0.7;
 
     &:hover {
-        box-shadow: 0 0 25px rgba(0, 119, 181, 0.5);
-        transform: scale(1.05);
-        color: #2FE3FE;
+        opacity: 1;
+        backdrop-filter: contrast(0.3);
     }
 
     & > ion-icon {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        color: #0A66C2;
     }
 
     @media (max-width: 768px) {
-        bottom: calc(var(--footerHeight) + 12px);
-        right: 12px;
-        padding: 8px 14px;
-        font-size: 0.72rem;
-        gap: 5px;
-        border-width: 1.5px;
+        min-height: 60px;
+        font-size: 0.8rem;
+        gap: 6px;
 
         & > ion-icon {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
         }
     }
 `;
@@ -221,11 +212,11 @@ function WorkPage(props) {
                         />
                     ))
                 }, [works])}
+                <StyledLinkedIn href="https://www.linkedin.com/in/duc-ngotrung-076237130">
+                    <IonIcon icon="logo-linkedin" />
+                    LinkedIn
+                </StyledLinkedIn>
             </StyledWorks>
-            <StyledLinkedIn href="https://www.linkedin.com/in/duc-ngotrung-076237130">
-                <IonIcon icon="logo-linkedin" />
-                LinkedIn
-            </StyledLinkedIn>
         </StyledWorkPage>
     )
 }
